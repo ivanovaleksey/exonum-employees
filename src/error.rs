@@ -8,6 +8,9 @@ pub enum Error {
 
     #[fail(display = "Employee not found")]
     EmployeeNotFound = 1,
+
+    #[fail(display = "Employee already exists")]
+    EmployeeAlreadyExists = 2,
 }
 
 impl From<Error> for ExecutionError {

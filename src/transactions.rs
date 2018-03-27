@@ -38,7 +38,7 @@ impl Transaction for Create {
         let mut schema = EmployeeSchema::new(view);
 
         match schema.employee(self.id()) {
-            Some(_) => unreachable!(),
+            Some(_) => Err(Error::EmployeeAlreadyExists)?,
             None => {
                 let employee = Employee::new(
                     self.public_key(),
