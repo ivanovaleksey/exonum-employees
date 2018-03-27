@@ -82,12 +82,16 @@ impl Api for EmployeeApi {
         let post_create_employee = move |req: &mut Request| self_.post_transaction(req);
 
         let self_ = self.clone();
+        let post_update_employee = move |req: &mut Request| self_.post_transaction(req);
+
+        let self_ = self.clone();
         let get_employees = move |req: &mut Request| self_.get_employees(req);
 
         let self_ = self.clone();
         let get_employee = move |req: &mut Request| self_.get_employee(req);
 
         router.post("/employees", post_create_employee, "post_create_employee");
+        router.post("/employees", post_update_employee, "post_update_employee");
         router.get("/employees", get_employees, "get_employees");
         router.get("/employees/:id", get_employee, "get_employee");
     }

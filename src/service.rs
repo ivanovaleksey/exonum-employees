@@ -14,7 +14,7 @@ lazy_static! {
     pub static ref SUPERUSER_PUBLIC_KEY: PublicKey = {
         use exonum::encoding::serialize::FromHex;
 
-        PublicKey::from_hex("1db774c9a2c12a16d5e3f3e72ade12e22ffd412f1e8ce7e0f28f931428e0ed95")
+        PublicKey::from_hex("18033e6cce778cdea36d448f260b2d210c040a8074054a4e319dda656fd74d64")
             .expect("Failed to build superuser public key")
     };
 }
