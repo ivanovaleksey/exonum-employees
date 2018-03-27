@@ -1,0 +1,14 @@
+{
+    "body": {
+        "public_key": "1060bf80970451abacf9c11e59ded15f99ba700bb030733c6543f1595eae13d3",
+        "id": 2,
+        "first_name": "Johnny",
+        "last_name": "Appleseed",
+        "info": "Personal info"
+    },
+    "network_id": 0,
+    "protocol_version": 0,
+    "service_id": 1,
+    "message_id": 0,
+    "signature": "ad66432b158ca7fd1b640d297600453bb979aa52c4133de6265d388e1455dd329306ad2618ae771dc2490c3ec2cfeb45bbcad633f7658348ee6f3c073822510e"
+}
