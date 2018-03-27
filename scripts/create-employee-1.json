@@ -1,6 +1,6 @@
 {
     "body": {
-        "public_key": "c85eefdaf21295ed25e0956a5f3e5152d6cf3a25a68827b5fb6f1a74af5cd37f",
+        "public_key": "8c76b159144a765cc986b731c040d718c853c5c27e32f21f6c666fc463b868fd",
         "id": 1,
         "first_name": "John",
         "last_name": "Doe",
@@ -10,5 +10,5 @@
     "protocol_version": 0,
     "service_id": 1,
     "message_id": 0,
-    "signature": "f2d4dff270ca73d30bb6f471fa864ef26152f99f7543de1c453645c0972579e65efb73713247d7590b7626113215d93f5cc9c209a742d4bd1ba9c90ba652a40b"
+    "signature": "7afa2155084112eb6e95629bb5afbc09026c836661dd867fa90d20e175335653216b3274087a6e93ad625bffafd17d19bef60d541bb92a661254c057fae1ea06"
 }
