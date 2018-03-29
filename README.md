@@ -57,3 +57,16 @@ curl -H "Content-Type: application/json" -X POST -d @update-employee-1.json  \
 curl -H "Content-Type: application/json" -X POST -d @update-employee-2.json  \
     http://127.0.0.1:8000/api/services/employees/employees
 ```
+
+There is a script which helps to get information about employees
+
+```
+# Display info for all employees
+./employees.sh --all
+
+# Display info for employee with id 1
+./employees.sh --key 1
+
+# Display info for employee blocks
+./employees.sh --blocks 1
+```
