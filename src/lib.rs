@@ -14,6 +14,6 @@ extern crate failure;
 
 mod api;
 mod error;
-mod schema;
+pub mod schema;
 pub mod service;
 pub mod transactions;
