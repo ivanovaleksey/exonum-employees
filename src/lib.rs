@@ -11,9 +11,13 @@ extern crate serde_json;
 extern crate serde_derive;
 #[macro_use]
 extern crate failure;
+#[macro_use]
+extern crate diesel;
 
 mod api;
+pub mod db_schema;
 mod error;
 pub mod schema;
 pub mod service;
+pub mod superuser_key;
 pub mod transactions;
