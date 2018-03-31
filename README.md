@@ -1,14 +1,24 @@
 # Exonum Employees
 
+## Installation
+
+Application uses PostgreSQL database.
+In order to prepare a database one can use [Diesel CLI](https://github.com/diesel-rs/diesel/tree/master/diesel_cli) tool
+
+```
+export DATABASE_URL=postgres://localhost/exonum_employees
+diesel database reset
+```
+
 ## Usage
 
-### Generate
+### Generate transactions
 
 There is a simple binary which provides generation of keypairs and signatures.  
 One can run it by executing
 
 ```
-$ cargo run --bin gen
+cargo run --bin gen
 ```
 
 Current application and scripts are set up to work with the following keys and signatures
@@ -33,7 +43,27 @@ Public key: c8e91d252ca9454dddb68a19a034172720084f96ef1cea1fb1d804a5baf8f3bd
 Signature: 1517e5a486e58837d1039847d0fa7286ed6df36be748f4ea54565e0da20546dc7c5c64b9eaccc815d351cb9f8d2d6df4ca33306dd41ff522afc5ee51ec72d404
 ```
 
-### Run
+### Manage superuser key
+
+Before running the application superuser public key must be set in `config.toml`. 
+Provided key will be stored in database if there are no keys at the moment. If there are any keys provided key will be compared with those in database. If the key is present in database it will be set as superuser public key for `EmployeeService`, otherwise application will not start.
+
+There is CLI tool called `keychain` which helps you to manage (add, list, remove) available superuser keys.
+
+```
+cargo run --bin keychain
+
+# Add a key
+cargo run --bin keychain add 8d91b2...
+
+# List all keys
+cargo run --bin keychain ls
+
+# Remove a key
+cargo run --bin keychain rm 8d91b2...
+```
+
+### Run blockchain
 
 In order to run a blockchain execute
 
