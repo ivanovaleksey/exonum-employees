@@ -5,7 +5,6 @@ authors = ["Aleksey Ivanov <ialexxei@gmail.com>"]
 
 [dependencies]
 exonum = "0.6"
-lazy_static = "1.0"
 iron = "0.6"
 router = "0.6"
 bodyparser = "0.8"
@@ -15,6 +14,8 @@ serde_derive = "1.0"
 failure = "0.1"
 quicli = "0.2"
 diesel = { version = "1.1.1", features = ["postgres"] }
+toml = "0.4"
 
 [dev-dependencies]
 exonum-testkit = "0.6"
+lazy_static = "1.0"

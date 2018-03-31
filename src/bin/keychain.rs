@@ -3,13 +3,12 @@ extern crate exonum_employees;
 #[macro_use]
 extern crate quicli;
 
-use std::{env, process};
-
-use diesel::PgConnection;
 use diesel::prelude::*;
 use exonum_employees::db_schema::superuser_keys;
 use exonum_employees::superuser_key::{NewSuperuserKey, SuperuserKey};
 use quicli::prelude::*;
+
+use std::{env, process};
 
 /// Manage superuser keys
 #[derive(Debug, StructOpt)]
@@ -36,7 +35,7 @@ main!(|args: Cli, log_level: verbosity| {
         process::exit(1);
     }
 
-    let conn = establish_connection();
+    let conn = exonum_employees::establish_connection();
 
     match args.cmd {
         Command::Add { key } => {
@@ -52,13 +51,7 @@ main!(|args: Cli, log_level: verbosity| {
             }
         }
         Command::Remove { key } => {
-            diesel::delete(superuser_keys::table.find(key))
-                .execute(&conn)?;
+            diesel::delete(superuser_keys::table.find(key)).execute(&conn)?;
         }
     }
 });
-
-pub fn establish_connection() -> PgConnection {
-    let database_url = env::var("DATABASE_URL").unwrap();
-    PgConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
-}

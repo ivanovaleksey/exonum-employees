@@ -3,9 +3,11 @@ use exonum::crypto::PublicKey;
 use exonum::messages::Message;
 use exonum::storage::Fork;
 
-use error::Error;
 use schema::{Employee, EmployeeId, EmployeeSchema};
-use service::{SERVICE_ID, SUPERUSER_PUBLIC_KEY};
+use service::{self, SERVICE_ID};
+use transactions::error::Error;
+
+mod error;
 
 transactions! {
     pub EmployeeTransactions {
@@ -31,7 +33,8 @@ transactions! {
 
 impl Transaction for Create {
     fn verify(&self) -> bool {
-        self.verify_signature(&SUPERUSER_PUBLIC_KEY)
+        let superuser_public_key = service::get_superuser_public_key();
+        self.verify_signature(&superuser_public_key)
     }
 
     fn execute(&self, view: &mut Fork) -> ExecutionResult {
@@ -58,7 +61,8 @@ impl Transaction for Create {
 
 impl Transaction for Update {
     fn verify(&self) -> bool {
-        self.verify_signature(&SUPERUSER_PUBLIC_KEY) || self.verify_signature(self.public_key())
+        let superuser_public_key = service::get_superuser_public_key();
+        self.verify_signature(&superuser_public_key) || self.verify_signature(self.public_key())
     }
 
     fn execute(&self, view: &mut Fork) -> ExecutionResult {
