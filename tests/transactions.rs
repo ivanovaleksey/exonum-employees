@@ -14,6 +14,8 @@ use exonum_employees::schema::{Employee, EmployeeId, EmployeeSchema};
 use exonum_employees::service::EmployeeService;
 use exonum_employees::transactions as tx;
 
+mod helpers;
+
 lazy_static! {
     static ref JOHN_PUBLIC_KEY: PublicKey = PublicKey::from_hex("8c76b159144a765cc986b731c040d718c853c5c27e32f21f6c666fc463b868fd").unwrap();
     static ref JOHN_UPDATE_SIG: Signature = Signature::from_hex("f3f65a2f7ddd806fb20e542750ac5102f423d9fe23f62afb8be3ed2691319922a243218ee83c9c57e6a300b508f58bfbb92b5859a9b56c88cc9ae45723ebd503").unwrap();
@@ -116,6 +118,8 @@ fn test_update_nonexisting_employee() {
 }
 
 fn init_testkit() -> TestKit {
+    helpers::set_superuser_public_key();
+
     TestKitBuilder::validator()
         .with_service(EmployeeService)
         .create()

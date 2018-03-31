@@ -1,11 +1,21 @@
 extern crate exonum;
 extern crate exonum_employees;
+#[macro_use]
+extern crate quicli;
 
 use exonum::crypto;
 use exonum::messages::Message;
 use exonum_employees::transactions;
+use quicli::prelude::*;
 
-fn main() {
+/// Generate signed transactions
+#[derive(Debug, StructOpt)]
+struct Cli {
+    #[structopt(long = "verbosity", short = "v", parse(from_occurrences))]
+    verbosity: u8,
+}
+
+main!(|args: Cli, log_level: verbosity| {
     let (su_public_key, su_secret_key) = crypto::gen_keypair();
     println!("Superuser public key: {}", su_public_key.to_hex());
 
@@ -60,4 +70,4 @@ fn main() {
     println!("Transaction: {:?}", tx);
     println!("Public key: {}", tx.public_key().to_hex());
     println!("Signature: {}\n", tx.raw().signature().to_hex());
-}
+});

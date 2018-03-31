@@ -10,14 +10,7 @@ use router::Router;
 use api::EmployeeApi;
 use transactions::EmployeeTransactions;
 
-lazy_static! {
-    pub static ref SUPERUSER_PUBLIC_KEY: PublicKey = {
-        use exonum::encoding::serialize::FromHex;
-
-        PublicKey::from_hex("8d91b28b9ef9e8745d04fe114657dc95ee41ef34502a51dd7f3defc117ed95e5")
-            .expect("Failed to build superuser public key")
-    };
-}
+static mut SUPERUSER_PUBLIC_KEY: Option<PublicKey> = None;
 
 pub const SERVICE_ID: u16 = 1;
 
@@ -46,5 +39,15 @@ impl Service for EmployeeService {
         let api = EmployeeApi::new(ctx.node_channel().clone(), ctx.blockchain().clone());
         api.wire(&mut router);
         Some(Box::new(router))
+    }
+}
+
+pub fn get_superuser_public_key() -> PublicKey {
+    unsafe { SUPERUSER_PUBLIC_KEY.expect("Superuser public key must be set") }
+}
+
+pub fn set_superuser_public_key(key: PublicKey) {
+    unsafe {
+        SUPERUSER_PUBLIC_KEY = Some(key);
     }
 }
