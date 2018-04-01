@@ -8,4 +8,7 @@ pub enum Error {
 
     #[fail(display = "Failed to parse config: {}", _0)]
     InvalidConfig(#[cause] TomlError),
+
+    #[fail(display = "Config for `employees` service not found")]
+    ConfigNotFound,
 }
