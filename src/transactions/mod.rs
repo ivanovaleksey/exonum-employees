@@ -52,7 +52,7 @@ impl Transaction for Create {
                 );
                 println!("Tx Create: {:?}", employee);
 
-                schema.employees_mut().put(&self.id(), employee);
+                schema.put_employee(&self.id(), employee);
                 Ok(())
             }
         }
@@ -83,7 +83,7 @@ impl Transaction for Update {
                 );
                 println!("Tx Update: {:?}", employee);
 
-                schema.employees_mut().put(&employee.id(), employee);
+                schema.put_employee(&self.id(), employee);
                 Ok(())
             }
             None => Err(Error::EmployeeNotFound)?,
