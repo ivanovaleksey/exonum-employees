@@ -8,6 +8,7 @@ use iron::Handler;
 use router::Router;
 
 use api::EmployeeApi;
+use schema::EmployeeSchema;
 use transactions::EmployeeTransactions;
 
 static mut SUPERUSER_PUBLIC_KEY: Option<PublicKey> = None;
@@ -25,8 +26,9 @@ impl Service for EmployeeService {
         "employees"
     }
 
-    fn state_hash(&self, _snapshot: &Snapshot) -> Vec<Hash> {
-        vec![]
+    fn state_hash(&self, snapshot: &Snapshot) -> Vec<Hash> {
+        let schema = EmployeeSchema::new(snapshot);
+        schema.state_hash()
     }
 
     fn tx_from_raw(&self, raw: RawTransaction) -> Result<Box<Transaction>, encoding::Error> {

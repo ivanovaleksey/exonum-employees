@@ -1,5 +1,5 @@
-use exonum::crypto::PublicKey;
-use exonum::storage::map_index::MapIndex;
+use exonum::crypto::{CryptoHash, Hash, PublicKey};
+use exonum::storage::proof_map_index::ProofMapIndex;
 use exonum::storage::{Fork, Snapshot};
 
 encoding_struct! {
@@ -28,17 +28,26 @@ where
         EmployeeSchema { view }
     }
 
-    pub fn employees(&self) -> MapIndex<&Snapshot, EmployeeId, Employee> {
-        MapIndex::new(MAP_NAME, self.view.as_ref())
+    pub fn state_hash(&self) -> Vec<Hash> {
+        vec![self.employees().root_hash()]
+    }
+
+    pub fn employees(&self) -> ProofMapIndex<&Snapshot, Hash, Employee> {
+        ProofMapIndex::new(MAP_NAME, self.view.as_ref())
     }
 
     pub fn employee(&self, id: EmployeeId) -> Option<Employee> {
-        self.employees().get(&id)
+        self.employees().get(&id.hash())
     }
 }
 
 impl<'a> EmployeeSchema<&'a mut Fork> {
-    pub fn employees_mut(&mut self) -> MapIndex<&mut Fork, EmployeeId, Employee> {
-        MapIndex::new(MAP_NAME, self.view)
+    pub fn put_employee(&mut self, id: &EmployeeId, employee: Employee) {
+        let mut map = self.employees_mut();
+        map.put(&id.hash(), employee);
+    }
+
+    fn employees_mut(&mut self) -> ProofMapIndex<&mut Fork, Hash, Employee> {
+        ProofMapIndex::new(MAP_NAME, self.view)
     }
 }
