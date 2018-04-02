@@ -8,7 +8,6 @@ use exonum::node::{Node, NodeConfig};
 use exonum::storage::MemoryDB;
 
 use exonum_employees::config;
-use exonum_employees::error::Error;
 use exonum_employees::service::{self, EmployeeService};
 
 use std::process;
@@ -56,7 +55,7 @@ fn main_() -> Result<NodeConfig, failure::Error> {
         .services_configs
         .get("employees")
         .cloned()
-        .ok_or(Error::ConfigNotFound)?;
+        .ok_or(config::Error::NotFound)?;
     let service_config = service_config.try_into::<config::Config>()?;
 
     let key = service_config.superuser_public_key;
