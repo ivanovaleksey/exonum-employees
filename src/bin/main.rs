@@ -10,6 +10,8 @@ use exonum::storage::MemoryDB;
 use exonum_employees::config;
 use exonum_employees::service::{self, EmployeeService};
 
+use failure::ResultExt;
+
 use std::process;
 
 macro_rules! die {
@@ -24,8 +26,8 @@ fn parse_node_config() -> Result<NodeConfig, failure::Error> {
     use std::io::Read;
 
     let mut s = String::new();
-    let mut file = File::open("config.toml")?;
-    file.read_to_string(&mut s)?;
+    let mut file = File::open("config.toml").context("Missing config.toml")?;
+    file.read_to_string(&mut s).context("Could not read config.toml")?;
 
     let node_config = toml::from_str(&s)?;
     Ok(node_config)
