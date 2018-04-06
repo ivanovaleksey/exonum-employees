@@ -36,7 +36,7 @@ fn parse_node_config() -> Result<NodeConfig, failure::Error> {
 fn main() {
     exonum::helpers::init_logger().unwrap();
 
-    match main_() {
+    match try_main() {
         Ok(node_config) => {
             let node = Node::new(
                 MemoryDB::new(),
@@ -51,7 +51,7 @@ fn main() {
     }
 }
 
-fn main_() -> Result<NodeConfig, failure::Error> {
+fn try_main() -> Result<NodeConfig, failure::Error> {
     let node_config = parse_node_config()?;
     let service_config = node_config
         .services_configs
