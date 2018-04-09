@@ -48,8 +48,8 @@ pub fn get_superuser_public_key() -> PublicKey {
     unsafe { SUPERUSER_PUBLIC_KEY.expect("Superuser public key must be set") }
 }
 
-pub fn set_superuser_public_key(key: PublicKey) {
-    unsafe {
-        SUPERUSER_PUBLIC_KEY = Some(key);
-    }
-}
+// pub fn set_superuser_public_key(key: PublicKey) {
+//     unsafe {
+//         SUPERUSER_PUBLIC_KEY = Some(key);
+//     }
+// }

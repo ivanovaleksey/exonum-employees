@@ -58,11 +58,13 @@ fn try_main() -> Result<NodeConfig, failure::Error> {
         .get("employees")
         .cloned()
         .ok_or(config::Error::NotFound)?;
-    let service_config = service_config.try_into::<config::Config>()?;
 
-    let key = service_config.superuser_public_key;
+    let mut config = config::CONFIG.write().unwrap();
+    *config = service_config.try_into::<config::Config>()?;
+
+    let key = config.superuser_public_key;
     exonum_employees::check_superuser_public_key(&key)?;
-    service::set_superuser_public_key(key);
+    // service::set_superuser_public_key(key);
 
     Ok(node_config)
 }
